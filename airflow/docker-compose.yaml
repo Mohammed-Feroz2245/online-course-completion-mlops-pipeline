@@ -1,7 +1,6 @@
 version: "3"
 
 services:
-  # 1. THE DATABASE (Stores your task history)
   postgres:
     image: postgres:13
     environment:
@@ -11,22 +10,39 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U airflow"]
       interval: 5s
+      retries: 5
 
-  # 2. THE AIRFLOW APP (Webserver & Scheduler)
   airflow:
     build: .
+    container_name: airflow
     depends_on:
-      postgres: { condition: service_healthy }
+      postgres:
+        condition: service_healthy
+
     volumes:
-      - ./dags:/opt/airflow/dags    # Syncs your DAG files
-      - ../:/opt/project           # Syncs your ML code
+      - ./dags:/opt/airflow/dags
+      - ../:/opt/project
+
     ports:
-      - "8080:8080"                 # Opens the website at localhost:8080
+      - "8080:8080"
+
+    env_file:
+      - .env
+
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    # This command sets up the user 'admin' and starts the app
+
     command: >
-      bash -c "airflow db upgrade && 
-      airflow users create --username admin --password admin --firstname admin --lastname admin --role Admin --email admin@test.com || true && 
-      airflow webserver & airflow scheduler"
+      bash -c "
+      airflow db upgrade &&
+      airflow users create
+      --username admin
+      --password admin
+      --firstname admin
+      --lastname admin
+      --role Admin
+      --email admin@test.com || true &&
+      airflow scheduler & airflow webserver
+      "

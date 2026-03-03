@@ -10,7 +10,7 @@ DATA_KEY = "data/online_course_completion(3).csv"
 MODEL_KEY = "artifacts/model.pkl"
 
 def train_and_upload():
-    s3 = boto3.client("s3")
+    s3 = boto3.client("s3", region_name="eu-north-1")
 
     data_path = "/tmp/data.csv"
     model_path = "/tmp/model.pkl"
