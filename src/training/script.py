@@ -20,20 +20,21 @@ def train_and_upload():
 
     df.drop_duplicates(inplace=True)
     
-    df.drop(
-        [
-            'height_cm', 'weight_kg', 'num_siblings', 'has_pet',
-            'favorite_color', 'birth_month'
-        ],
-        axis=1,
-        inplace=True,
-        errors="ignore"
-    )
+    # NEW ROBUST FIX: 
+    # This automatically removes 'Africa', names, or any other text columns
+    # while keeping 'completed_course' and 'preferred_device' for now.
+    numeric_cols = df.select_dtypes(include=['number']).columns.tolist()
+    # We must keep preferred_device for the dummy conversion below
+    cols_to_keep = list(set(numeric_cols + ['preferred_device', 'completed_course']))
+    df = df[cols_to_keep]
+
     df.dropna(inplace=True)
 
+    # Convert device text to numbers
     dummies = pd.get_dummies(df["preferred_device"], drop_first=True)
     df = pd.concat([df, dummies], axis=1)
 
+    # Prepare features and target
     X = df.drop(["completed_course", "preferred_device"], axis=1)
     y = df["completed_course"]
 
