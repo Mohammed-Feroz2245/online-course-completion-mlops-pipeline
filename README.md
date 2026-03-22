@@ -172,4 +172,8 @@ GitHub Actions workflow:
 
 ## 👨‍💻 Author
 
+<<<<<<< HEAD
 Mohammed Feroz
+=======
+Mohammed Feroz
+>>>>>>> db03897ed35d2f22d49c7cdef33cd05a33bc7621
