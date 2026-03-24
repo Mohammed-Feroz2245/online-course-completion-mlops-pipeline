@@ -18,6 +18,19 @@ This project focuses on **deployability, automation, and scalability**, simulati
 
 ---
 
+##📸 Preview
+
+👉 Screenshot of:
+![Swagger UI](images/swagger.png)
+
+👉 Screenshot of:
+- AWS ECS service running (images/ecs.png)
+
+👉 Screenshot of:
+- GitHub Actions (images/ci.png)
+
+---
+
 ## 🏗️ Architecture Overview
 
 ```
@@ -171,9 +184,4 @@ GitHub Actions workflow:
 ---
 
 ## 👨‍💻 Author
-
-<<<<<<< HEAD
-Mohammed Feroz
-=======
-Mohammed Feroz
->>>>>>> db03897ed35d2f22d49c7cdef33cd05a33bc7621
+Mohammed Feroz Shaik
