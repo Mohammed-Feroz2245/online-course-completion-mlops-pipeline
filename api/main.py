@@ -29,6 +29,6 @@ def read_root():
 
 @app.post("/predict")
 def predict_course(data: PredictionInput):
-    # Use model_dump() instead of .dict() for Pydantic V2
+    # CHANGED: Use model_dump() instead of .dict() to satisfy Pydantic V2
     result = model.predict(data.model_dump())
     return {"prediction": "Completed" if result == 1 else "Not Completed"}

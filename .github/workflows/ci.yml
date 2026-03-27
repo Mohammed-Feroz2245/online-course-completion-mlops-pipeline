@@ -9,20 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest httpx
-
       - name: Run tests
-        # This tells your Python code "We are in GitHub, don't try to load the real model"
         env:
           CI: true
         run: pytest
@@ -32,32 +28,24 @@ jobs:
     needs: test-api
     if: github.event_name == 'push'
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # ADD THIS STEP: It sets up the environment for all subsequent AWS steps
-      - name: Configure AWS Credentials
+      # ADDED THIS STEP: This is required for the login to work
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
 
-      - name: Login to Amazon ECR
-        id: login-ecr
+      - name: Login to AWS ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build Docker image
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: 685251218327.dkr.ecr.eu-north-1.amazonaws.com
+          ECR_REPOSITORY: course-completion-api
+          IMAGE_TAG: latest
         run: |
-          docker build -f docker/Dockerfile.api \
-          -t course-completion-api .
-
-      - name: Tag Docker image
-        run: |
-          docker tag course-completion-api:latest \
-          685251218327.dkr.ecr.eu-north-1.amazonaws.com/course-completion-api:latest
-
-      - name: Push Docker image to ECR
-        run: |
-          docker push \
-          685251218327.dkr.ecr.eu-north-1.amazonaws.com/course-completion-api:latest
+          docker build -f docker/Dockerfile.api -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
