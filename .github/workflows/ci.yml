@@ -22,13 +22,14 @@ jobs:
           pip install pytest httpx
 
       - name: Run tests
-        run: pytest
         env:
           CI: true
+        run: pytest
 
   build-and-push-api:
     runs-on: ubuntu-latest
     needs: test-api
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
 

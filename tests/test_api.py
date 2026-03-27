@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 from api.main import app
-import os
+from unittest.mock import patch
+import pytest
 
-# Create a mock client
 client = TestClient(app)
 
 def test_read_main():
@@ -12,7 +12,7 @@ def test_read_main():
     assert response.json() == {"message": "API is running"}
 
 def test_predict_endpoint_structure():
-    """Test if the predict endpoint accepts correct input structure"""
+    """Test if the predict endpoint accepts correct input structure using a Mock"""
     payload = {
         "age": 25,
         "hours_per_week": 10,
@@ -23,10 +23,14 @@ def test_predict_endpoint_structure():
         "smart_tv": 0,
         "tablet": 0
     }
-    # We use a POST request
-    response = client.post("/predict", json=payload)
     
-    # In CI, we skip model loading, so we expect a 500 or handled error 
-    # unless we mock the model. For now, let's just check the home page 
-    # and verify the app starts correctly.
-    assert response.status_code in [200, 500]
+    # We "patch" the predict method so it doesn't actually run the model
+    with patch("src.model_class.CourseCompletionModel.predict") as mock_predict:
+        mock_predict.return_value = 1  # Pretend the model predicted 'Completed'
+        
+        response = client.post("/predict", json=payload)
+        
+        assert response.status_code == 200
+        assert response.json() == {"prediction": "Completed"}
+        # Verify the mock was actually called
+        mock_predict.assert_called_once()
