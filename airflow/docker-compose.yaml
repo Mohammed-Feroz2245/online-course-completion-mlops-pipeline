@@ -70,3 +70,4 @@ services:
       # ADDED THIS LINE (Must match webserver key)
       AIRFLOW__WEBSERVER__SECRET_KEY: "super-secret-key-123"
     command: scheduler
+    
