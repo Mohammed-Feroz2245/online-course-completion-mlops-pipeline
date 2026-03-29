@@ -2,16 +2,20 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from src.model_class import CourseCompletionModel
 from contextlib import asynccontextmanager
+from prometheus_fastapi_instrumentator import Instrumentator # NEW IMPORT
 
 model = CourseCompletionModel()
 
-# Modern FastAPI lifespan instead of @app.on_event("startup")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     model.load_model()
     yield
 
 app = FastAPI(lifespan=lifespan)
+
+# --- NEW: PROMETHEUS INSTRUMENTATION ---
+# This line automatically creates the /metrics endpoint
+Instrumentator().instrument(app).expose(app)
 
 class PredictionInput(BaseModel):
     age: int
@@ -29,6 +33,5 @@ def read_root():
 
 @app.post("/predict")
 def predict_course(data: PredictionInput):
-    # CHANGED: Use model_dump() instead of .dict() to satisfy Pydantic V2
     result = model.predict(data.model_dump())
     return {"prediction": "Completed" if result == 1 else "Not Completed"}
