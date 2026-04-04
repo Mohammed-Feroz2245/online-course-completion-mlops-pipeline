@@ -59,13 +59,14 @@ ML_MAIN_PROJECT/
 ## 📸 Preview
 
 ### 🔹 API (Swagger UI)
-![Swagger UI](images/swagger.png)
+<img width="1916" height="1092" alt="swagger png" src="https://github.com/user-attachments/assets/2b45e568-8cfc-407c-95e3-6303990b991c" />
+
 
 ### 🔹 AWS ECS Deployment
-![ECS](images/ecs.png)
+<img width="1916" height="913" alt="ecs png" src="https://github.com/user-attachments/assets/644e3542-87f7-4a64-8ad1-0f79205ccb67" />
 
 ### 🔹 CI/CD Pipeline
-![CI](images/ci.png)
+<img width="1908" height="1097" alt="ci png" src="https://github.com/user-attachments/assets/ae9ecc8e-d3d9-4fdc-981c-322218e35684" />
 
 ---
 
