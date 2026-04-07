@@ -4,17 +4,16 @@ from datetime import datetime
 import sys
 import os
 
-# Ensure the src directory is in the python path
-sys.path.append("/opt/project")
+# Adds the project root to path so 'src' can be found
+sys.path.append(os.getenv("PYTHONPATH", "/opt/project"))
 
 def run_training():
-    # This imports the function we just updated in Step 1
     from src.training.script import train_and_upload
     return train_and_upload()
 
 with DAG(
     dag_id="ml_training_pipeline",
-    start_date=datetime(2026, 1, 1), # Updated to a current year
+    start_date=datetime(2026, 1, 1),
     schedule="@daily",
     catchup=False,
     tags=["mlops"],

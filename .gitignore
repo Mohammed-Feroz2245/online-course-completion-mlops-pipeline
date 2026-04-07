@@ -1,27 +1,46 @@
-# Virtual Environments
+# --- Python & Environment ---
 .venv/
 venv/
-airflow_env/
-airflow_envairflow_env/
-.env
-
-# Python artifacts
-**/__pycache__/
+ENV/
+env/
 *.pyc
-*.pkl
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
 
-# Data & ML
+# --- uv (Dependency Manager) ---
+# We keep pyproject.toml and uv.lock, but ignore the local tool cache
+.uv/
+
+# --- ML Artifacts & Data ---
+# Do NOT push large data files or models to GitHub
 data/
 artifacts/
+mlruns/
 *.csv
-model.pkl
+*.pkl
+*.h5
+*.joblib
+.temp/
 
-# Airflow
+# --- AWS & Credentials ---
+.aws/
+.env
+*.pem
+credentials.json
+
+# --- Airflow ---
 airflow/logs/
 airflow/plugins/
 airflow/airflow.db
+airflow/airflow.cfg
+airflow/webserver_config.py
+airflow/unittests.cfg
 
-# OS
+# --- Docker ---
+.docker/
+docker-compose.override.yml
+
+# --- OS Specific ---
 .DS_Store
-
-mlruns/
+Thumbs.db

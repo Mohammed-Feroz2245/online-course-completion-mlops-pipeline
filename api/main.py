@@ -3,10 +3,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from src.model_class import CourseCompletionModel
 from contextlib import asynccontextmanager
-from prometheus_fastapi_instrumentator import Instrumentator # NEW IMPORT
+from prometheus_fastapi_instrumentator import Instrumentator
 
-IS_CI = os.getenv("CI") == "true"
-model = CourseCompletionModel(skip_loading=IS_CI)
+model = CourseCompletionModel(skip_loading=(os.getenv("CI") == "true"))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -14,16 +13,13 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(lifespan=lifespan)
-
-# --- NEW: PROMETHEUS INSTRUMENTATION ---
-# This line automatically creates the /metrics endpoint
 Instrumentator().instrument(app).expose(app)
 
 class PredictionInput(BaseModel):
     age: int
     hours_per_week: int
     assignments_submitted: int
-    desktop: int
+    desktop: int # User sends this, but model_class filters it
     mobile: int
     pager: int
     smart_tv: int
