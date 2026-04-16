@@ -201,6 +201,7 @@ Full ECS deployment automation
 Feature store integration
 ---
 
-👨‍💻 Author
-Mohammed Feroz Shaik
+
+**👨‍💻 Author**
+**Mohammed Feroz Shaik**
 
