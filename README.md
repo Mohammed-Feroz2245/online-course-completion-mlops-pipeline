@@ -1,4 +1,4 @@
-# 🚀 Course Completion Prediction System (MLOps Project)
+# End-to-End MLOps Pipeline – Online Course Completion Prediction
 
 An end-to-end **production-grade machine learning system** that predicts whether a student will complete an online course based on engagement data.
 
