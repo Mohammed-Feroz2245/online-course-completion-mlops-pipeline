@@ -24,29 +24,29 @@ class CourseCompletionModel:
                 self.model = pickle.load(f)
             print("✅ Model loaded successfully from S3")
         except Exception as e:
-            print(f"Error loading model: {e}")
+            print(f"❌ Error loading model: {e}")
 
     def predict(self, input_data: dict):
         if self.model is None:
-            if self.skip_loading: 
+            if self.skip_loading:
                 return 0
             self.load_model()
         
-        # MUST exactly match FEATURES_LIST in training script
+        # MUST match FEATURES_LIST in training script
         expected_order = ['age', 'hours_per_week', 'assignments_submitted', 
-                         'Desktop', 'Mobile', 'Pager', 'Smart TV', 'Tablet', 'device_count']
+                         'Desktop', 'Mobile', 'Pager', 'Smart TV', 'Tablet']
         
+        # Create DataFrame from user input (all devices now visible to user)
         df = pd.DataFrame([{
             'age': input_data['age'],
             'hours_per_week': input_data['hours_per_week'],
             'assignments_submitted': input_data['assignments_submitted'],
-            'Desktop': input_data.get('desktop', 0),   # added Desktop (default 0)
-            'Mobile': input_data['mobile'],
-            'Pager': input_data['pager'],
-            'Smart TV': input_data['smart_tv'],
-            'Tablet': input_data['tablet'],
-            'device_count': (input_data.get('desktop', 0) + input_data['mobile'] + 
-                            input_data['pager'] + input_data['smart_tv'] + input_data['tablet'])
+            'Desktop': input_data.get('desktop', 0),
+            'Mobile': input_data.get('mobile', 0),
+            'Pager': input_data.get('pager', 0),
+            'Smart TV': input_data.get('smart_tv', 0),
+            'Tablet': input_data.get('tablet', 0)
         }])
 
+        # Ensure exact same order as training
         return int(self.model.predict(df[expected_order])[0])
