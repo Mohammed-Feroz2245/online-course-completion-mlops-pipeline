@@ -4,7 +4,7 @@ install:
 	uv sync
 
 test:
-	CI=true uv run pytest
+	set CI=true && uv run pytest
 
 train:
 	uv run python -m src.training.script

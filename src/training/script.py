@@ -28,7 +28,7 @@ def fetch_data_and_preprocess(s3_client, local_data_path):
         raise
 
     df = pd.read_csv(local_data_path).drop_duplicates()
-    df = df.dropna
+    df = df.dropna()
 
     # Target
     y = df["completed_course"]

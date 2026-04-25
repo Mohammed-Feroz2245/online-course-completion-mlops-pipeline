@@ -17,9 +17,13 @@ with DAG(
     schedule="@daily",
     catchup=False,
     tags=["mlops"],
+    default_args={
+        "retries": 2,
+    },
 ) as dag:
 
     train_model = PythonOperator(
         task_id="train_model",
         python_callable=run_training,
     )
+    
