@@ -24,7 +24,7 @@ class CourseCompletionModel:
                 self.model = pickle.load(f)
             print("✅ Model loaded successfully from S3")
         except Exception as e:
-            print(f"❌ Error loading model: {e}")
+            raise RuntimeError(f"Model loading failed: {e}")
 
     def predict(self, input_data: dict):
         if self.model is None:
