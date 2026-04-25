@@ -29,11 +29,12 @@ def fetch_data_and_preprocess(s3_client, local_data_path):
 
     df = pd.read_csv(local_data_path).drop_duplicates()
     df = df.dropna
+
     # Target
     y = df["completed_course"]
     
     # One-hot encoding for preferred_device (includes Desktop now)
-    dummies = pd.get_dummies(df["preferred_device"], drop_first=False)  # drop_first=False because we want Desktop
+    dummies = pd.get_dummies(df["preferred_device"], drop_first=False) 
     
     # Combine numeric features + dummies
     X = df[['age', 'hours_per_week', 'assignments_submitted']].join(dummies)
