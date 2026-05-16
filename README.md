@@ -19,7 +19,7 @@ This system simulates an industry-level ML pipeline:
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 ```
 ML_MAIN_PROJECT/
 ├── .github/workflows/
