@@ -119,7 +119,7 @@ AWS ECR → ECS Deployment
 
 ---
 
-## ⚙️ ML Pipeline
+## ML Pipeline
 
 - Data ingestion from AWS S3
 - Data preprocessing & cleaning
@@ -130,7 +130,7 @@ AWS ECR → ECS Deployment
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### ✅ GET /
 Health check endpoint
