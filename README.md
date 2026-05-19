@@ -6,7 +6,7 @@ This project demonstrates **real-world MLOps practices** including automation, c
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 
 This system simulates an industry-level ML pipeline:
 
@@ -19,7 +19,7 @@ This system simulates an industry-level ML pipeline:
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 ```
 ML_MAIN_PROJECT/
 ├── .github/workflows/
@@ -44,7 +44,7 @@ ML_MAIN_PROJECT/
 
 ---
 
-## 🚀 Key Highlights
+##  Key Highlights
 
 - End-to-end ML pipeline (**data → training → evaluation → deployment**)
 - REST API for real-time predictions using FastAPI
@@ -56,7 +56,7 @@ ML_MAIN_PROJECT/
 
 ---
 
-## 📸 Preview
+##  Preview
 
 ### 🔹 API (Swagger UI)
 <img width="1916" height="1092" alt="swagger png" src="https://github.com/user-attachments/assets/2b45e568-8cfc-407c-95e3-6303990b991c" />
@@ -70,7 +70,7 @@ ML_MAIN_PROJECT/
 
 ---
 
-## 🏗️ Architecture Overview
+##  Architecture Overview
 ![kweEo](https://github.com/user-attachments/assets/6a159188-f2fc-422c-9415-85c9a64bf072)
 ```
 Dataset (CSV)
@@ -96,7 +96,7 @@ AWS ECR → ECS Deployment
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 ### 🔹 Languages & ML
 - Python
@@ -119,7 +119,7 @@ AWS ECR → ECS Deployment
 
 ---
 
-## ⚙️ ML Pipeline
+## ML Pipeline
 
 - Data ingestion from AWS S3
 - Data preprocessing & cleaning
@@ -130,7 +130,7 @@ AWS ECR → ECS Deployment
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### ✅ GET /
 Health check endpoint
@@ -158,7 +158,7 @@ Output:
 }
 
 ```
-🐳 Running Locally
+ Running Locally
 🔹 Using Docker
 
 ```
@@ -172,7 +172,7 @@ http://127.0.0.1:8000/docs
 ```
 ---
 
-🔄 CI/CD Pipeline
+ CI/CD Pipeline
 
 Automated workflow using GitHub Actions:
 Install dependencies
@@ -181,20 +181,20 @@ Build Docker image
 Push image to AWS ECR
 ---
 
-📊 Airflow Orchestration
+ Airflow Orchestration
 DAG: ml_training_pipeline
 Automates training workflow
 Fetches data from S3
 Stores trained model back to S3
 ---
 
-🎯 Project Goals
+ Project Goals
 Build a production-ready ML system
 Apply real-world MLOps practices
 Demonstrate deployment-ready ML engineering skills
 ---
 
-📈 Future Improvements
+ Future Improvements
 Model versioning (MLflow)
 Monitoring & logging (Prometheus/Grafana)
 Full ECS deployment automation
