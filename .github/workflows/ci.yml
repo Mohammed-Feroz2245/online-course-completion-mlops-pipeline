@@ -44,5 +44,5 @@ jobs:
       - name: Build & Push
         run: |
           docker build -f docker/Dockerfile.api \
-          -t 685251218327.dkr.ecr.eu-north-1.amazonaws.com/course-completion-api:latest .
-          docker push 685251218327.dkr.ecr.eu-north-1.amazonaws.com/course-completion-api:latest
+          -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-north-1.amazonaws.com/course-completion-api:latest .
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-north-1.amazonaws.com/course-completion-api:latest

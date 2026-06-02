@@ -1,0 +1,14 @@
+# ================================================================
+# STEP 1 — Copy this file, rename it to: terraform.tfvars
+# STEP 2 — Fill in YOUR real values below
+# STEP 3 — Never commit terraform.tfvars to GitHub (already in .gitignore)
+# ================================================================
+
+aws_account_id          = "PASTE_YOUR_12_DIGIT_ACCOUNT_ID_HERE"
+aws_access_key          = "PASTE_YOUR_ACCESS_KEY_HERE"
+aws_secret_key          = "PASTE_YOUR_SECRET_KEY_HERE"
+aws_region              = "eu-north-1"
+project_name            = "course-completion"
+s3_bucket_name          = "course-completion-ml-artifacts"
+ecr_api_repo_name       = "PASTE_YOUR_FASTAPI_ECR_REPO_NAME_HERE"
+ecr_lambda_repo_name    = "PASTE_YOUR_LAMBDA_ECR_REPO_NAME_HERE"
